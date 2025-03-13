@@ -1,6 +1,4 @@
-# Mortal Kombat basic game
-
-############################## NEW CLASS #####################################
+# Mortal Kombat game
 # Keeps track of attack moves, character, enhancement, and final_kill move    
 class Character:
 
@@ -13,9 +11,8 @@ class Character:
     self.enhancement = ''
     self.final_kill_move_dict = {'Kitana': ['Gore Nado', 'Royal Execution'], 'Frost': ['Ice Sculpture', 'The Cyber Initiative'],'Shao Kahn': ['YOU SUCK', 'Head Kabob'],'Scorpion': ['Get Over Here', 'Ashes'], 'Spawn': ['Rest in Peices', 'Unchained'],'Kano': ['NOT HERE TO F#CK SPIDERS', 'Look what I found'],'Noob Saibot': ['Decapper', 'Together Again'], 'Skarlet': ['Bloody Fun', 'Gutted'], 'Geras': ['Stasis Assault', 'Pulled Apart']}
     self.player_num = player_num
-
-# Allows user to select character from a list of available characters and will remove that character after chosen
-  def choose_character(self):
+ 
+  def choose_character(self): # Allows user to select character from a list of available characters
     num = 1
     for character in player1.character_list:
       print(str(num) + ' ' + character)
@@ -25,8 +22,7 @@ class Character:
         choice = int(input('Please enter a value 1-5\n')) - 1 
     character = self.character_list[choice]
     self.character = character
-## Allows player to choose their final kill move
-  def choose_final_kill(self):
+  def choose_final_kill(self): ## Allows player to choose their final kill move
     if self.character in self.final_kill_move_dict:
       final_kill_options = self.final_kill_move_dict.get(self.character)
       num = 1
@@ -40,8 +36,8 @@ class Character:
       self.final_kill_move = final_kill_options[choice]
     else:
       return None
-##Allows player to choose what enhancement they'd like
-  def choose_enhancement(self):
+
+  def choose_enhancement(self): ##Allows player to choose what enhancement they'd like
     print('Now Select a character enhancement below')
     enhancement = int(input(' 1. Extra Health, will increase health to 150 \n 2. Extra Strength, increases attack power by 5 points (excludes final kill)\n Input a number and press enter to select.\n'))
     while enhancement not in range(1, 3):
@@ -60,8 +56,6 @@ class Character:
     line += ' as their enhancement.'
     return line
 
-################ NEW CLASS #####################
-# Keeps track of attacks, health, blocks, and if a player is dead or not
 class Fight:
 
   def __init__(self, character, enhancement, health, fight_dict, kill_move):
@@ -75,8 +69,8 @@ class Fight:
     self.blocks = 0
     self.final_kill_damage = 30
     self.blocking = False
-## Allows player to attack other player and decrease their health by an amount multiplied by the attack level
-  def attack_other_player(self, other_player):
+
+  def attack_other_player(self, other_player): ## Allows player to attack other player
     character = self.character
     character2 = other_player.character
     character_attacks = self.attack_moves
@@ -123,15 +117,13 @@ class Fight:
     character2 = other_player.character
     print('''{char1} blocks {char2}.\n'''.format(char1 = character, char2 = character2))
   
-### Allows player to use final kill move if otehr players health is 30 or less
-  def final_kill(self, other_player):
+  def final_kill(self, other_player): ### Allows player to use final kill move if otehr players health is 30 or less
     final_kill = other_player.kill_move
     if other_player.health <= 30:
       other_player.health = 0
       print('{char1} uses {kill} on {char2}, {char1} wins. Flawless Victory!\n'.format(char1 = self.character, char2 = other_player.character, kill = final_kill))
     else:
-      print('We are sorry, the final kill is not available for you yet\n')
-  ### allows to print out fighting stats of the player selected
+      print('We are sorry, the final kill is not available for you yet\n')   ### allows to print out fighting stats of the player selected
   def __repr__(self):
     char = self.character
     health = self.health
@@ -172,10 +164,6 @@ player2_enhancement = player2.choose_enhancement()
 print('\n'+ str(player2) + '\n')
 print(player1.enhancement)
 print(player2.enhancement)
-#########################################################
-########### Now the Fight between players begins ############################################################################
-#########################################################
-
 print('\nNow we will begin our fight between {char1} and {char2}\n'.format(char1 = player1.character, char2 = player2.character))
 ## Keeping track of the player fight stats with assigning each player their specific fight class
 if player1.enhancement == 'Extra Health':
